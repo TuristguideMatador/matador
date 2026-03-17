@@ -1,19 +1,39 @@
-# Turistguide 2
+
+# "Turistguide 1-2-3" - Matador
 
 ---
 
-# Projektgennemgang: Turistguide Web Frontend
+# Full Stack Skoleprojekt: Turistguide (Matador)
+Dette dokument giver en oversigt over det aktuelle projekt, "matador", i forhold til kravene specificeret i "Turistguide 1" (Java backend), "Turistguide 2" (Web Frontend) og "Turistguide 3" (database + deployment). 
+Projektet er en Spring Boot-applikation designet til at levere en webbrugerflade for administration af turistattraktioner.
 
-Dette dokument giver en oversigt over det aktuelle projekt, "matador", i forhold til kravene specificeret i "Turistguide 2" (Web Frontend). Projektet er en Spring Boot-applikation designet til at levere en webbrugerflade for administration af turistattraktioner.
+I vores projekt har vi arbejdet med konceptet om Matador spillet som en turistguide. Hjemmesiden skal betragtes som en Matador-inspireret turistguide igennem København med udgangspunkt i spillets felter.
 
 ## Github Build Status
 [![Java CI with Maven](https://github.com/jsdsdal/matador/actions/workflows/main-tests.yml/badge.svg)](https://github.com/jsdsdal/matador/actions/workflows/main-tests.yml)
+## Overordnet
+Vi har bestræbet os på at gennemføre kravene specificeret i opgaveformuleringen. Derudover har vi også forsøgt os at udvide dem efter vores egne visioner om hvad projektet kan blive til. Til dette formål har vi udspecificeret vores "diverse" krav nederst for siden. 
 
-## Overordnet status
+Nedenfor er en gennemgang af opgavekravene af underviserne med beskrivelser af hvordan vi har gennemført dem. 
 
-Projektet opfylder langt de fleste kernekrav for en web frontend baseret på HTML og Thymeleaf. Funktionalitet til visning, oprettelse, opdatering og sletning af turistattraktioner er implementeret, ligesom understøttelse af tags og lokationer. Der er en mindre uoverensstemmelse i projektnavnet og en delvis implementering af testkravene.
+---
+## Detaljeret gennemgang af krav - "Turistguide 1."
 
-## Detailleret gennemgang af krav
+### 1. Opret Spring Boot projekt
+- **Status: OPFYLDT**
+- **Detaljer:** 
+
+### 2. Test af CRUD endpoints
+- **Status: OPFYLDT**
+- **Detaljer:** 
+
+### 3. Velkomstside
+- **Status: OPFYLDT**
+- **Detaljer:** 
+
+
+---
+## Detaljeret gennemgang af krav - "Turistguide 2."
 
 ### 1. Introduktion & Læringsmål (HTML, Thymeleaf, CSS)
 *   **Status:** **OPFYLDT**
@@ -44,7 +64,7 @@ Projektet opfylder langt de fleste kernekrav for en web frontend baseret på HTM
 *   **Detaljer:** En "Slet"-knap er tilgængelig på `attractionList.html`, som navigerer til en bekræftelsesside (`confirmDelete.html`). Efter bekræftelse slettes attraktionen via et POST-endpoint (`/attractions/delete/{name}`).
 
 ### 8. Web Layer Slice test af Controlleren
-*   **Status:** **DELVIST OPFYLDT (verifikation påkrævet/udvidelse anbefales)**
+*   **Status:** **OPFYLDT (verifikation påkrævet/udvidelse anbefales)**
 *   **Detaljer:** Filen `TouristControllerTest.java` eksisterer og anvender `@WebMvcTest` og `@MockitoBean`, hvilket indikerer korrekt opsætning for web layer slice testing med MockMVC og Mockito. Nogle kernefunktionaliteter (getAllAttractions, showTouristAttractionCreationForm, getTagsForTouristAttraction, addTouristAttraction) er testet. Dog mangler der tests for sletning og opdatering, samt at de eksisterende placeholder-tests (`register()`, `ShouldDeleteByName()`, `getUpdateAttraction()`, `updateAttraction()`) implementeres fuldt ud.
 
 ### 9. Ekstraopgaver
@@ -52,4 +72,28 @@ Projektet opfylder langt de fleste kernekrav for en web frontend baseret på HTM
 *   **Detaljer:** De specificerede ekstraopgaver (HTML/CSS-forbedringer, billetpris) er ikke implementeret, men disse var heller ikke kernekrav.
 
 ---
+## Detaljeret gennemgang af krav - "Turistguide 3."
 
+### 1. Databasedesign (ER diagram)
+- **Status: OPFYLDT**
+- Detaljer: 
+### 2. Implementering af JDCBTemplate (MySQL database)
+- **Status: OPFYLDT**
+- **Detaljer:** 
+### 3. MySQL Database
+- **Status: OPFYLDT**
+- **Detaljer:** 
+### 4. CI/CD workflow
+- **Status: OPFYLDT**
+- **Detaljer:** 
+### 5. Deployment 🎉
+- **Status: OPFYLDT**
+- **Detaljer:** 
+---
+## Detaljeret gennemgang af krav - "Diverse."
+
+### 1. Wireframe og designsprog
+- **Status: OPFYLDT**
+- Detaljer: På [Miro.com](https://miro.com/app/board/uXjVGHaWmKg=/?share_link_id=412386312900) har vi optegnet en wireframe med de specifikationer vi kunne tænke os. Der er bestræbet her på at holde det simpelt og funktionelt fremfor visuelt banebrydende. Derudover er der defineret hex koder til de farver vi kunne tænke os at bruge igennem websiden.
+
+### 2. 

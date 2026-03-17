@@ -23,15 +23,15 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: 'Qodana Scan'
+      - name: Qodana Scan
         uses: jetbrains/qodana-action@v2025.2
         with:
-          image: jetbrains/qodana-jvm:2025.2
+          args: --image jetbrains/qodana-jvm:2025.2
           pr-mode: false
           use-caches: true
           post-pr-comment: true
           use-annotations: true
           upload-result: true
           push-fixes: 'none'
-          env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}        
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

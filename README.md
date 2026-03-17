@@ -21,11 +21,20 @@ Nedenfor er en gennemgang af opgavekravene af underviserne med beskrivelser af h
 
 ### 1. Opret Spring Boot projekt
 - **Status: OPFYLDT**
-- **Detaljer:** 
+- **Detaljer:** Der er oprettet et Spring Boot projekt efter specifikationerne i opgavekravene. Herunder har vi `TouristRepository` med `@Repository` annotationen (en ArrayList i denne udgave - se [sammenligning her](https://github.com/TuristguideMatador/matador/compare/4368a15cf449d8e6b501775ee3b9ea903f931609...afa0defdb5c1b70301bd3b7510695293762275bc).Ligeledes er `TouristService` med `@Service` annotationen oprettet, samt `TouristController` med `@Controller` annotation.
 
 ### 2. Test af CRUD endpoints
 - **Status: OPFYLDT**
-- **Detaljer:** 
+- **Detaljer:** Vi har følgende endpoints:
+-   **GET** `"/"` → hjem / index
+-   **GET** `"/attractions"` → viser alle attraktioner
+-   **GET** `"/{name}/tags"` → viser tags for attraktion
+-   **GET** `"/attractions/add"` → form til at tilføje en attraktion
+-   **POST** `"/attractions/add"` → tilføjer attraktion, herefter redirect efter tilføjelse
+-   **POST** `"/attractions/delete/{name}"` → slet, herefter redirect til liste efter delete
+-   **GET** `"/attractions/getDelete/{name}"` → bekræft sletning
+-   **GET** `"/attractions/edit/{name}"` → opdater attraktion, henter attraktion
+-   **POST** `"/attractions/edit/{name}"` → postere opdateringen, herefter redirect til liste
 
 ### 3. Velkomstside
 - **Status: OPFYLDT**

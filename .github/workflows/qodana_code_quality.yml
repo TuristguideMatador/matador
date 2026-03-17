@@ -24,16 +24,14 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@v2025.2
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+        uses: jetbrains/qodana-action@v2025.2
         with:
-          # When pr-mode is set to true, Qodana analyzes only the files that have been changed
+          image: jetbrains/qodana-jvm:2025.2
           pr-mode: false
           use-caches: true
           post-pr-comment: true
           use-annotations: true
-          # Upload Qodana results (SARIF, other artifacts, logs) as an artifact to the job
-          upload-result: false
-          # quick-fixes available in Ultimate and Ultimate Plus plans
+          upload-result: true
           push-fixes: 'none'
+          env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}        

@@ -16,12 +16,6 @@ public class TouristRepository {
      */
     public void populateTouristAttractions() {
         List<Tags> tags = new ArrayList<>();
-//        tags.add(Tags.GRATIS);
-//        tags.add(Tags.BØRNEVENLIG);
-//        tags.add(Tags.KULTUR);
-//        touristAttractions.add(new TouristAttraction("Tivoli", "Forlystelsespark", "Nørrebrø",tags));
-//        touristAttractions.add(new TouristAttraction("Den Lille Havfrue", "Seværdighed", "Nørrebrø",tags));
-//        touristAttractions.add(new TouristAttraction("Rundetårn", "Kulturarv", "Nørrebrø", tags));
 
         touristAttractions.add(new TouristAttraction(
                 "Toftegårds Bodega",

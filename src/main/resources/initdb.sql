@@ -37,4 +37,5 @@ create table attraction_tag (
                                 tag_id int,
                                 FOREIGN KEY (attraction_id) REFERENCES tag(tag_id)
 );
+ss
 

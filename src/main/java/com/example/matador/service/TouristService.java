@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class TouristService {
@@ -20,7 +19,7 @@ public class TouristService {
     }
 
     public List<TouristAttraction> getTouristAttractions(){
-        return repository.getTouristAttractions();
+        return repository.findAll();
 
     }
 
@@ -33,14 +32,17 @@ public class TouristService {
     }
 
 
-
+    // evt slettes?
     public TouristAttraction updateTouristAttractionName(TouristAttraction touristAttraction, String name) {
         repository.updateTouristAttractionName(touristAttraction, name);
+        touristAttraction.setName(name);
         return touristAttraction;
     }
 
+    // evt slettes?
     public TouristAttraction updateTouristAttractionDescription(TouristAttraction touristAttraction, String description) {
         repository.updateTouristAttractionDescription(touristAttraction, description);
+        touristAttraction.setDescription(description);
         return touristAttraction;
     }
 
@@ -65,7 +67,7 @@ public class TouristService {
     }
 
 
-    public Set<String> getLocations() {
+    public List<String> getLocations() {
         return repository.getLocations();
     }
 

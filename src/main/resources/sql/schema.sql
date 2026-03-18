@@ -40,6 +40,6 @@ create table attraction_tag
 (
     attraction_id int,
     tag_id        int,
-    FOREIGN KEY (attraction_id) REFERENCES tag (tag_id)
+    FOREIGN KEY (attraction_id) REFERENCES tourist_attraction (attraction_id)
 );
 

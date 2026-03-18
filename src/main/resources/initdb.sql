@@ -18,7 +18,7 @@ CREATE TABLE location
     location_id INT AUTO_INCREMENT PRIMARY KEY,
     name        varchar(20) NOT NULL,
     color_id    INT         NOT NULL,
-    FOREIGN KEY (color_id) references color (color_id)
+    FOREIGN KEY (color_id) REFERENCES color (color_id)
 );
 
 CREATE TABLE tourist_attraction

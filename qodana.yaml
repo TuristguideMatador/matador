@@ -41,3 +41,5 @@ exclude:
   - name: MVCPathVariableInspection
   - name: SpringMVCInitBinder
   - name: SpringMVCViewInspection
+
+    #TEST

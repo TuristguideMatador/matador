@@ -27,7 +27,9 @@ jobs:
         uses: jetbrains/qodana-action@v2025.3
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-        with: 
+        with:
+          args: >
+            --baseline qodana.sarif.json
           pr-mode: false
           use-caches: true
           post-pr-comment: true

@@ -13,22 +13,16 @@ public class TouristAttractionRowMapper implements RowMapper<TouristAttraction> 
                 rs.getInt("attraction_id"),
                 rs.getInt("location_id"),
                 rs.getString("name"),
-                rs.getString("description")
+                rs.getString("description"),
+                rs.getString("location_name"),
+                rs.getString("color_hex")
         );
+        /*
 
         attraction.setLocation(rs.getString("location_name"));
         attraction.setColorHex(rs.getString("color_hex"));
 
+         */
         return attraction;
     }
-
-    //join tabel til senere
-    //
-    // SELECT ta.attraction_id,
-    //       ta.location_id,
-    //       ta.name,
-    //       ta.description,
-    //       l.name AS location_name
-    //FROM tourist_attraction ta
-    //JOIN location l ON ta.location_id = l.location_id
 }

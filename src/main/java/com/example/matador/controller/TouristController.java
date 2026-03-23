@@ -1,6 +1,5 @@
 package com.example.matador.controller;
 
-import com.example.matador.model.Tags;
 import com.example.matador.model.TouristAttraction;
 import com.example.matador.service.TouristService;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,7 @@ public class TouristController {
     public String showTouristAttractionCreationForm(Model model){
         TouristAttraction touristAttraction = new TouristAttraction();
         model.addAttribute("TouristAttraction", touristAttraction);
-        model.addAttribute("allTags",service.getTags());
+        model.addAttribute("allTags",service.getAllTags());
         model.addAttribute("allLocations", service.getLocations());
         return "attraction-creation-form";
     }
@@ -46,7 +45,7 @@ public class TouristController {
     @GetMapping("/{name}/tags")
     public String getTagsForTouristAttraction(@PathVariable String name, Model model) {
         TouristAttraction attraction = service.getTouristAttractionByName(name);
-        List<Tags> userTags = attraction.getTags();
+        List<String> userTags = attraction.getTags();
         model.addAttribute("name", name);
         model.addAttribute("tags", userTags);
         return "tags";
@@ -69,7 +68,8 @@ public class TouristController {
     public String getUpdateAttraction(@PathVariable String name, Model model) {
         TouristAttraction myAttraction = service.getTouristAttractionByName(name);
         model.addAttribute("attraction", myAttraction);
-        model.addAttribute("allTags", service.getTags());
+        model.addAttribute("allLocations", service.getLocations());
+        model.addAttribute("allTags", service.getAllTags());
         return "updateAttraction";
     }
 

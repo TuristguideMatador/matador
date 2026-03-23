@@ -1,25 +1,15 @@
 package com.example.matador.repository;
 
-import com.example.matador.model.Tags;
 import com.example.matador.model.TouristAttraction;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class TouristRepository {
-//    @Value("${spring.datasource.url}")
-//    private String dbUrl;
-//    @Value("${spring.datasource.username}")
-//    private String username;
-//    @Value("${spring.datasource.password}")
-//    private String password;
-
     private final JdbcTemplate jdbcTemplate;
 
     public TouristRepository(JdbcTemplate jdbcTemplate) {
@@ -32,15 +22,19 @@ public class TouristRepository {
     // find alle fra join table
     public List<TouristAttraction> findAll() {
         String sql = """
-        SELECT ta.attraction_id,
-               ta.location_id,
-               ta.name,
-               ta.description,
-               l.name AS location_name,
-               c.hex AS color_hex
-        FROM tourist_attraction ta
-        JOIN location l ON ta.location_id = l.location_id
-        JOIN color c ON l.color_id = c.color_id
+        SELECT 
+            tourist_attraction.attraction_id,
+            tourist_attraction.location_id,
+            tourist_attraction.name, 
+            tourist_attraction.description,
+            location.name AS location_name,
+            color.hex AS color_hex
+        FROM
+            tourist_attraction
+        JOIN location
+            ON tourist_attraction.location_id = location.location_id
+        JOIN color
+            ON location.color_id = color.color_id
         """;
 
         List<TouristAttraction> attractions = jdbcTemplate.query(sql, new TouristAttractionRowMapper());
@@ -55,16 +49,16 @@ public class TouristRepository {
     // get = NAME
     public TouristAttraction getTouristAttractionByName(String name) {
         String sql = """
-        SELECT ta.attraction_id,
-               ta.location_id,
-               ta.name,
-               ta.description,
-               l.name AS location_name,
-               c.hex AS color_hex
-        FROM tourist_attraction ta
-        JOIN location l ON ta.location_id = l.location_id
-        JOIN color c ON l.color_id = c.color_id
-        WHERE ta.name = ?
+        SELECT tourist_attraction.attraction_id,
+               tourist_attraction.location_id,
+               tourist_attraction.name,
+               tourist_attraction.description,
+               location.name AS location_name,
+               color.hex AS color_hex
+        FROM tourist_attraction
+        JOIN location ON tourist_attraction.location_id = location.location_id
+        JOIN color ON location.color_id = color.color_id
+        WHERE tourist_attraction.name = ?
         """;
 
         List<TouristAttraction> result = jdbcTemplate.query(sql, new TouristAttractionRowMapper(), name);
@@ -73,10 +67,12 @@ public class TouristRepository {
             return null;
         }
 
+
         TouristAttraction attraction = result.get(0);
         attraction.setTags(getTagsForAttraction(attraction.getAttractionId()));
         return attraction;
     }
+
 
     // get location id by name
     public int getLocationIdByName(String locationName) {
@@ -85,35 +81,52 @@ public class TouristRepository {
         return locationId;
     }
 
+
+
     // get locations
     public List<String> getLocations() {
-        String sql = "SELECT name FROM location ORDER BY name";
+        //rækkefølgen bør ikke være sorteret - den naturlige sortering fra spillepladen er god.
+        //String sql = "SELECT name FROM location ORDER BY name";
+        String sql = """
+            SELECT name FROM location
+            """;
+
         return jdbcTemplate.queryForList(sql, String.class);
     }
 
-    // get tags
-    public List<Tags> getTagsForAttraction(int attractionId) {
+
+    public List<String> getAllTags() {
         String sql = """
-        SELECT t.tag_name
-        FROM tag t
-        JOIN attraction_tag at ON t.tag_id = at.tag_id
-        WHERE at.attraction_id = ?
+            SELECT tag_name FROM tag
+            """;
+
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
+
+
+    public List<String> getTagsForAttraction(int attractionId) {
+        String sql = """
+        SELECT tag.tag_name
+        FROM attraction_tag
+        JOIN tag ON tag.tag_id = attraction_tag.tag_id
+        WHERE attraction_tag.attraction_id = ?
         """;
 
         List<String> tagNames = jdbcTemplate.queryForList(sql, String.class, attractionId);
-
-        List<Tags> tags = new ArrayList<>();
+/*
+        List<String> tags = new ArrayList<>();
         for (String tagName : tagNames) {
             tags.add(Tags.valueOf(tagName));
         }
 
-        return tags;
+ */
+        return tagNames;
     }
 
-    // add
+
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         String sql = """
-        INSERT INTO tourist_attraction (location_id, name, description)
+        INSERT INTO tourist_attraction (name, description, location_id)
         VALUES (?, ?, ?)
         """;
 
@@ -121,27 +134,32 @@ public class TouristRepository {
 
         jdbcTemplate.update(connection -> {
             var ps = connection.prepareStatement(sql, new String[]{"attraction_id"});
-            ps.setInt(1, touristAttraction.getLocationId());
-            ps.setString(2, touristAttraction.getName());
-            ps.setString(3, touristAttraction.getDescription());
+            ps.setString(1, touristAttraction.getName());
+            ps.setString(2, touristAttraction.getDescription());
+            ps.setInt(3, touristAttraction.getLocationId());
             return ps;
         }, keyHolder);
 
         int attractionId = keyHolder.getKey().intValue();
-        touristAttraction.setAttractionId(attractionId);
+        //touristAttraction.setAttractionId(attractionId);
 
         saveTagsForAttraction(attractionId, touristAttraction.getTags());
 
         return touristAttraction;
+
     }
 
     // save tags
-    private void saveTagsForAttraction(int attractionId, List<Tags> tags) {
-        String findTagIdSql = "SELECT tag_id FROM tag WHERE tag_name = ?";
-        String insertJoinSql = "INSERT INTO attraction_tag (attraction_id, tag_id) VALUES (?, ?)";
+    private void saveTagsForAttraction(int attractionId, List<String> tags) {
+        String findTagIdSql = """
+            SELECT tag_id FROM tag WHERE tag_name = ?
+            """;
+        String insertJoinSql = """
+            INSERT INTO attraction_tag (attraction_id, tag_id) VALUES (?, ?)
+            """;
 
-        for (Tags tag : tags) {
-            Integer tagId = jdbcTemplate.queryForObject(findTagIdSql, Integer.class, tag.name());
+        for (String tag : tags) {
+            Integer tagId = jdbcTemplate.queryForObject(findTagIdSql, Integer.class, tag);
             jdbcTemplate.update(insertJoinSql, attractionId, tagId);
         }
     }
@@ -149,14 +167,15 @@ public class TouristRepository {
     // update
     public void update(TouristAttraction updatedTouristAttraction) {
         String sql = """
-        UPDATE tourist_attraction
-        SET location_id = ?, description = ?
-        WHERE attraction_id = ?
+            UPDATE tourist_attraction
+            SET name = ?, description = ?, location_id = ? 
+            WHERE attraction_id = ?
         """;
 
         jdbcTemplate.update(sql,
-                updatedTouristAttraction.getLocationId(),
+                updatedTouristAttraction.getName(),
                 updatedTouristAttraction.getDescription(),
+                updatedTouristAttraction.getLocationId(),
                 updatedTouristAttraction.getAttractionId());
 
         String deleteTagsSql = "DELETE FROM attraction_tag WHERE attraction_id = ?";
@@ -166,16 +185,21 @@ public class TouristRepository {
     }
 
     // SKAL MULIGVIS SLETTES FOR AT OVERHOLDE CRUD
+    /*
     public void updateTouristAttractionName(TouristAttraction touristAttraction, String name) {
         String sql = "UPDATE tourist_attraction SET name = ? WHERE attraction_id = ?";
         jdbcTemplate.update(sql, name, touristAttraction.getAttractionId());
     }
 
+     */
+
+    /*
     // SKAL MULIGVIS SLETTES FOR AT OVERHOLDE CRUD
     public void updateTouristAttractionDescription(TouristAttraction touristAttraction, String description) {
         String sql = "UPDATE tourist_attraction SET description = ? WHERE attraction_id = ?";
         jdbcTemplate.update(sql, description, touristAttraction.getAttractionId());
     }
+    */
 
     public void deleteByName(String name) {
         TouristAttraction attraction = getTouristAttractionByName(name);
@@ -183,10 +207,14 @@ public class TouristRepository {
             return;
         }
 
-        String deleteJoinSql = "DELETE FROM attraction_tag WHERE attraction_id = ?";
+        String deleteJoinSql = """
+            DELETE FROM attraction_tag WHERE attraction_id = ?
+            """;
         jdbcTemplate.update(deleteJoinSql, attraction.getAttractionId());
 
-        String deleteAttractionSql = "DELETE FROM tourist_attraction WHERE attraction_id = ?";
+        String deleteAttractionSql = """
+            DELETE FROM tourist_attraction WHERE attraction_id = ?
+            """;
         jdbcTemplate.update(deleteAttractionSql, attraction.getAttractionId());
     }
 

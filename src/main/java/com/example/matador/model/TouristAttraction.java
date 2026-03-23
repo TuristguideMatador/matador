@@ -24,6 +24,21 @@ public class TouristAttraction {
         this.description = description;
     }
 
+    // SQL mapping2
+    public TouristAttraction(int attractionId,
+                             int locationId,
+                             String name,
+                             String description,
+                             String location,
+                             String colorHex) {
+        this.attraction_id = attractionId;
+        this.location_id = locationId;
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.colorHex = colorHex;
+    }
+
     // full
     public TouristAttraction(int attraction_id,
                              int location_id,

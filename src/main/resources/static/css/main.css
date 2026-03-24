@@ -11,8 +11,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 
-
-
 body {
     margin: 0;
     padding: 48px;
@@ -92,29 +90,6 @@ h1 {
     margin: 40px auto 10px auto;
 }
 
-/* table {*/
-/*    border-collapse: collapse;*/
-/*    width: 100%;*/
-/*}*/
-
-/*th, td {*/
-/*    border: 2px solid var(--textblack);*/
-/*    padding: 10px;*/
-/*    text-align: left; }*/
-
-/*td:last-child {*/
-/*    display: flex;*/
-/*    gap: 6px;*/
-/*    align-items: center;*/
-/*}*/
-
-
-/*th {*/
-/*    text-align: left;*/
-/*    background-color: var(--bordeaux);*/
-/*    color: var(--sitewhite);*/
-/*}*/
-
 /* Styles for attraction-creation-form.html */
 
 .creation-form {
@@ -171,7 +146,7 @@ input[type="checkbox"] {
 
 /* 3. Style what happens when it is checked */
 input[type="checkbox"]:checked {
-    background-color: var(--moneygreen); /* Or keep it red and add a dot */
+    background-color: var(--moneygreen);
     border-color: var(--sitewhite);
 }
 

@@ -36,7 +36,6 @@ public class TouristRepository {
         return attractions;
     }
 
-    // get = NAME
     public TouristAttraction getTouristAttractionByName(String name) {
         String sql = """
      SELECT tourist_attraction.attraction_id,
@@ -64,7 +63,6 @@ public class TouristRepository {
     }
 
 
-    // get location id by name
     public int getLocationIdByName(String locationName) {
         String sql = "SELECT location_id FROM location WHERE name = ?";
         Integer locationId = jdbcTemplate.queryForObject(sql, Integer.class, locationName);
@@ -73,7 +71,6 @@ public class TouristRepository {
 
 
 
-    // get locations
     public List<String> getLocations() {
         String sql = """
             SELECT name FROM location
@@ -130,7 +127,6 @@ public class TouristRepository {
 
     }
 
-    // save tags
     private void saveTagsForAttraction(int attractionId, List<String> tags) {
         String findTagIdSql = """
             SELECT tag_id FROM tag WHERE tag_name = ?
@@ -145,7 +141,6 @@ public class TouristRepository {
         }
     }
 
-    // update
     public void update(TouristAttraction updatedTouristAttraction) {
         String sql = """
             UPDATE tourist_attraction

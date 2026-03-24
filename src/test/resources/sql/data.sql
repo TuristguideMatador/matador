@@ -1,14 +1,5 @@
-SET FOREIGN_KEY_CHECKS = 0;
-
-TRUNCATE TABLE attraction_tag;
-TRUNCATE TABLE color;
-TRUNCATE TABLE location;
-TRUNCATE TABLE tag;
-TRUNCATE TABLE tourist_attraction;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-START TRANSACTION;
+--
+-- SET FOREIGN_KEY_CHECKS = 1;
 
 -- Lookup tables
 
@@ -94,20 +85,4 @@ INSERT INTO attraction_tag (attraction_id, tag_id) VALUES
                                                        (3,1),
                                                        (3,9),
                                                        (3,4);
-
-COMMIT;
-
-SELECT * FROM tourist_attraction;
-
-SELECT
-    tourist_attraction.name AS Name,
-    tourist_attraction.description AS Description,
-    location.name AS Location,
-    color.hex AS Color
-FROM
-    tourist_attraction
-        JOIN location
-             ON tourist_attraction.location_id = location.location_id
-        JOIN color
-             ON location.color_id = color.color_id;
 

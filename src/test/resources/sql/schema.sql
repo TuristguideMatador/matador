@@ -1,7 +1,3 @@
-CREATE DATABASE matadorDB
-    DEFAULT CHARACTER SET utf8mb4;
-
-USE matadorDB;
 
 CREATE TABLE color
 (

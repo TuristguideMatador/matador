@@ -16,8 +16,6 @@ public class TouristRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // alle queries er rent gæt lige nu
-    // opfølgning med Erik kl 14
 
     // find alle fra join table
     public List<TouristAttraction> findAll() {
@@ -85,8 +83,6 @@ public class TouristRepository {
 
     // get locations
     public List<String> getLocations() {
-        //rækkefølgen bør ikke være sorteret - den naturlige sortering fra spillepladen er god.
-        //String sql = "SELECT name FROM location ORDER BY name";
         String sql = """
             SELECT name FROM location
             """;
@@ -113,13 +109,6 @@ public class TouristRepository {
         """;
 
         List<String> tagNames = jdbcTemplate.queryForList(sql, String.class, attractionId);
-/*
-        List<String> tags = new ArrayList<>();
-        for (String tagName : tagNames) {
-            tags.add(Tags.valueOf(tagName));
-        }
-
- */
         return tagNames;
     }
 
@@ -183,23 +172,6 @@ public class TouristRepository {
 
         saveTagsForAttraction(updatedTouristAttraction.getAttractionId(), updatedTouristAttraction.getTags());
     }
-
-    // SKAL MULIGVIS SLETTES FOR AT OVERHOLDE CRUD
-    /*
-    public void updateTouristAttractionName(TouristAttraction touristAttraction, String name) {
-        String sql = "UPDATE tourist_attraction SET name = ? WHERE attraction_id = ?";
-        jdbcTemplate.update(sql, name, touristAttraction.getAttractionId());
-    }
-
-     */
-
-    /*
-    // SKAL MULIGVIS SLETTES FOR AT OVERHOLDE CRUD
-    public void updateTouristAttractionDescription(TouristAttraction touristAttraction, String description) {
-        String sql = "UPDATE tourist_attraction SET description = ? WHERE attraction_id = ?";
-        jdbcTemplate.update(sql, description, touristAttraction.getAttractionId());
-    }
-    */
 
     public void deleteByName(String name) {
         TouristAttraction attraction = getTouristAttractionByName(name);

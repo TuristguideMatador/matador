@@ -15,7 +15,6 @@ public class TouristAttraction {
 
     public TouristAttraction() {}
 
-    // SQL mapping2
     public TouristAttraction(int attractionId,
                              int locationId,
                              String name,
@@ -29,7 +28,7 @@ public class TouristAttraction {
         this.location = location;
         this.colorHex = colorHex;
     }
-    // full
+
     public TouristAttraction(int attractionId,
                              int locationId,
                              String name,

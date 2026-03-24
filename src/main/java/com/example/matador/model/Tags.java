@@ -1,5 +1,0 @@
-package com.example.matador.model;
-
-public enum Tags {
-    BØRNEVENLIG, HANDICAPVENLIG, GRATIS, UDENDØRS, INDENDØRS, UNDERHOLDNING, RESTAURANT, KULTUR, TOILET, NATUR
-}

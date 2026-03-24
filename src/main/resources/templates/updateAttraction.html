@@ -19,14 +19,23 @@
 
         <div>
 
+            <input type="hidden" th:field="*{attractionId}">
             <label>Navn</label>
             <input type="text" th:field="*{name}" readonly>
 
             <label>Beskrivelse</label>
             <input type="text" th:field="*{description}">
 
+
             <label>Lokation</label>
-            <input type="text" th:field="*{location}">
+            <select th:field="*{location}">
+                <option th:each="loc : ${allLocations}"
+                        th:value="${loc}"
+                        th:text="${loc}">
+                </option>
+            </select>
+
+
         </div>
 
         <div>

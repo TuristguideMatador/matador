@@ -1,14 +1,11 @@
 package com.example.matador.service;
 
-import com.example.matador.model.Tags;
 import com.example.matador.model.TouristAttraction;
 import com.example.matador.repository.TouristRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class TouristService {
@@ -20,7 +17,7 @@ public class TouristService {
     }
 
     public List<TouristAttraction> getTouristAttractions(){
-        return repository.getTouristAttractions();
+        return repository.findAll();
 
     }
 
@@ -29,27 +26,39 @@ public class TouristService {
     }
 
     public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction){
+        touristAttraction.setLocationId(repository.getLocationIdByName(touristAttraction.getLocation()));
         return repository.addTouristAttraction(touristAttraction);
     }
 
 
-
+    // evt slettes?
+    /*
     public TouristAttraction updateTouristAttractionName(TouristAttraction touristAttraction, String name) {
         repository.updateTouristAttractionName(touristAttraction, name);
+        touristAttraction.setName(name);
         return touristAttraction;
     }
 
+    // evt slettes?
     public TouristAttraction updateTouristAttractionDescription(TouristAttraction touristAttraction, String description) {
         repository.updateTouristAttractionDescription(touristAttraction, description);
+        touristAttraction.setDescription(description);
         return touristAttraction;
     }
 
+     */
+
+    //skal der bruges transactional her?
+    @Transactional
     public void deleteByName(String name){
         repository.deleteByName(name);
     }
 
-
+    //skal der bruges transactional her?
+    @Transactional
     public void update(TouristAttraction updatedTouristAttraction) {
+        int locationId = repository.getLocationIdByName(updatedTouristAttraction.getLocation());
+        updatedTouristAttraction.setLocationId(locationId);
         repository.update(updatedTouristAttraction);
     }
 
@@ -58,14 +67,12 @@ public class TouristService {
      * og returnerer dem
      * @return allEnums
      */
-    public List<Tags> getTags() {
-        List<Tags> allEnums;
-        allEnums = new ArrayList<>(EnumSet.allOf(Tags.class));
-        return allEnums;
+    public List<String> getAllTags() {
+        return repository.getAllTags();
     }
 
 
-    public Set<String> getLocations() {
+    public List<String> getLocations() {
         return repository.getLocations();
     }
 

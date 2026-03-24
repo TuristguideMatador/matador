@@ -16,8 +16,6 @@ public class TouristRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    // find alle fra join table
     public List<TouristAttraction> findAll() {
         String sql = """
         SELECT 

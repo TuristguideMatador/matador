@@ -28,7 +28,7 @@ public class TouristAttraction {
         this.location = location;
         this.colorHex = colorHex;
     }
-
+    // full
     public TouristAttraction(int attractionId,
                              int locationId,
                              String name,

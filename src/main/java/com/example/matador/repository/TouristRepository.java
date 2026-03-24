@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class TouristRepository {
@@ -65,8 +66,14 @@ public class TouristRepository {
 
     public int getLocationIdByName(String locationName) {
         String sql = "SELECT location_id FROM location WHERE name = ?";
-        Integer locationId = jdbcTemplate.queryForObject(sql, Integer.class, locationName);
-        return locationId;
+
+        Integer locationId;
+        locationId = jdbcTemplate.queryForObject(sql, Integer.class, locationName);
+        if (locationId != null) {
+            return locationId;
+        } else {
+            throw new NoSuchElementException("Location not found" + locationName);
+        }
     }
 
 
@@ -97,8 +104,7 @@ public class TouristRepository {
         WHERE attraction_tag.attraction_id = ?
         """;
 
-        List<String> tagNames = jdbcTemplate.queryForList(sql, String.class, attractionId);
-        return tagNames;
+        return jdbcTemplate.queryForList(sql, String.class, attractionId);
     }
 
 
@@ -117,10 +123,13 @@ public class TouristRepository {
             ps.setInt(3, touristAttraction.getLocationId());
             return ps;
         }, keyHolder);
-
-        int attractionId = keyHolder.getKey().intValue();
-        //touristAttraction.setAttractionId(attractionId);
-
+        int attractionId;
+        Number key = keyHolder.getKey();
+        if (key != null) {
+            attractionId = key.intValue();
+        } else {
+            throw new NoSuchElementException("Failed to retrieve ID for attraction");
+        }
         saveTagsForAttraction(attractionId, touristAttraction.getTags());
 
         return touristAttraction;

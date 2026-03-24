@@ -17,17 +17,6 @@ public class TouristAttraction {
     public TouristAttraction(int attractionId,
                              int locationId,
                              String name,
-                             String description) {
-        this.attraction_id = attractionId;
-        this.location_id = locationId;
-        this.name = name;
-        this.description = description;
-    }
-
-    // SQL mapping2
-    public TouristAttraction(int attractionId,
-                             int locationId,
-                             String name,
                              String description,
                              String location,
                              String colorHex) {
@@ -76,16 +65,6 @@ public class TouristAttraction {
     public void setLocation(String location) { this.location = location; }
     public void setTags(List<String> tags) { this.tags = tags; }
     public void setColorHex(String colorHex) { this.colorHex = colorHex; }
-
-    // tilføj tag
-//    public void addTags(Tags tag) { tags.add(tag); }
-
-    // tilføjer flere tags ?
-    // spørg underviser
-
-
-    // fjern tag
-//    public void removeTags(Tags tag) { tags.remove(tag);}
 
     @Override
     public boolean equals(Object o) {

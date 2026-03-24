@@ -16,7 +16,7 @@ public class TouristService {
         this.repository = repository;
     }
 
-    public List<TouristAttraction> getTouristAttractions(){
+    public List<TouristAttraction> getTouristAttractions() {
         return repository.findAll();
 
     }
@@ -25,36 +25,16 @@ public class TouristService {
         return repository.getTouristAttractionByName(name);
     }
 
-    public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction){
+    public TouristAttraction addTouristAttraction(TouristAttraction touristAttraction) {
         touristAttraction.setLocationId(repository.getLocationIdByName(touristAttraction.getLocation()));
         return repository.addTouristAttraction(touristAttraction);
     }
 
-
-    // evt slettes?
-    /*
-    public TouristAttraction updateTouristAttractionName(TouristAttraction touristAttraction, String name) {
-        repository.updateTouristAttractionName(touristAttraction, name);
-        touristAttraction.setName(name);
-        return touristAttraction;
-    }
-
-    // evt slettes?
-    public TouristAttraction updateTouristAttractionDescription(TouristAttraction touristAttraction, String description) {
-        repository.updateTouristAttractionDescription(touristAttraction, description);
-        touristAttraction.setDescription(description);
-        return touristAttraction;
-    }
-
-     */
-
-    //skal der bruges transactional her?
     @Transactional
-    public void deleteByName(String name){
+    public void deleteByName(String name) {
         repository.deleteByName(name);
     }
 
-    //skal der bruges transactional her?
     @Transactional
     public void update(TouristAttraction updatedTouristAttraction) {
         int locationId = repository.getLocationIdByName(updatedTouristAttraction.getLocation());
@@ -65,6 +45,7 @@ public class TouristService {
     /**
      * Opretter en liste af vores eksisterende Tags
      * og returnerer dem
+     *
      * @return allEnums
      */
     public List<String> getAllTags() {
@@ -75,7 +56,4 @@ public class TouristService {
     public List<String> getLocations() {
         return repository.getLocations();
     }
-
-
-
 }

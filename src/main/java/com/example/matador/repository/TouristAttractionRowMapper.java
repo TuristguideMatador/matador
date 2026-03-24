@@ -17,12 +17,6 @@ public class TouristAttractionRowMapper implements RowMapper<TouristAttraction> 
                 rs.getString("location_name"),
                 rs.getString("color_hex")
         );
-        /*
-
-        attraction.setLocation(rs.getString("location_name"));
-        attraction.setColorHex(rs.getString("color_hex"));
-
-         */
         return attraction;
     }
 }

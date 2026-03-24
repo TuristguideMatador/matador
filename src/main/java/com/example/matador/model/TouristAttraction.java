@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TouristAttraction {
-    private int attraction_id;
-    private int location_id;
+    private int attractionId;
+    private int locationId;
     private String name;
     private String description;
     private String location;
@@ -22,23 +22,23 @@ public class TouristAttraction {
                              String description,
                              String location,
                              String colorHex) {
-        this.attraction_id = attractionId;
-        this.location_id = locationId;
+        this.attractionId = attractionId;
+        this.locationId = locationId;
         this.name = name;
         this.description = description;
         this.location = location;
         this.colorHex = colorHex;
     }
     // full
-    public TouristAttraction(int attraction_id,
-                             int location_id,
+    public TouristAttraction(int attractionId,
+                             int locationId,
                              String name,
                              String description,
                              String location,
                              List<String> tags,
                              String colorHex){
-        this.attraction_id = attraction_id;
-        this.location_id = location_id;
+        this.attractionId = attractionId;
+        this.locationId = locationId;
         this.name = name;
         this.description = description;
         this.location = location;
@@ -46,8 +46,8 @@ public class TouristAttraction {
         this.colorHex = colorHex;
     }
 
-    public int getAttractionId() { return attraction_id; }
-    public int getLocationId() { return location_id; }
+    public int getAttractionId() { return attractionId; }
+    public int getLocationId() { return locationId; }
     public String getName() { return name; }
     public String getDescription() { return description; }
     public String getLocation() { return  location; }
@@ -55,8 +55,8 @@ public class TouristAttraction {
     public String getColorHex() { return colorHex; }
 
 
-    public void setAttractionId(int attraction_id) { this.attraction_id = attraction_id; }
-    public void setLocationId(int location_id) { this.location_id = location_id; }
+    public void setAttractionId(int attraction_id) { this.attractionId = attraction_id; }
+    public void setLocationId(int location_id) { this.locationId = location_id; }
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setLocation(String location) { this.location = location; }

@@ -55,8 +55,8 @@ public class TouristAttraction {
     public String getColorHex() { return colorHex; }
 
 
-    public void setAttractionId(int attraction_id) { this.attractionId = attraction_id; }
-    public void setLocationId(int location_id) { this.locationId = location_id; }
+    public void setAttractionId(int attractionId) { this.attractionId = attractionId; }
+    public void setLocationId(int locationId) { this.locationId = locationId; }
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setLocation(String location) { this.location = location; }

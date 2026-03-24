@@ -18,20 +18,14 @@ public class TouristRepository {
 
     public List<TouristAttraction> findAll() {
         String sql = """
-        SELECT 
-            tourist_attraction.attraction_id,
-            tourist_attraction.location_id,
-            tourist_attraction.name, 
-            tourist_attraction.description,
-            location.name AS location_name,
-            color.hex AS color_hex
-        FROM
-            tourist_attraction
-        JOIN location
-            ON tourist_attraction.location_id = location.location_id
-        JOIN color
-            ON location.color_id = color.color_id
-        """;
+                SELECT tourist_attraction.attraction_id,  
+                tourist_attraction.location_id,  
+                tourist_attraction.name, tourist_attraction.description, 
+                location.name AS location_name, color.hex AS color_hex FROM  tourist_attraction  
+                JOIN location  
+                ON tourist_attraction.location_id = location.location_id  
+                JOIN color  
+                ON location.color_id = color.color_id""";
 
         List<TouristAttraction> attractions = jdbcTemplate.query(sql, new TouristAttractionRowMapper());
 
@@ -45,7 +39,7 @@ public class TouristRepository {
     // get = NAME
     public TouristAttraction getTouristAttractionByName(String name) {
         String sql = """
-        SELECT tourist_attraction.attraction_id,
+     SELECT tourist_attraction.attraction_id,
                tourist_attraction.location_id,
                tourist_attraction.name,
                tourist_attraction.description,
@@ -55,7 +49,7 @@ public class TouristRepository {
         JOIN location ON tourist_attraction.location_id = location.location_id
         JOIN color ON location.color_id = color.color_id
         WHERE tourist_attraction.name = ?
-        """;
+         """;
 
         List<TouristAttraction> result = jdbcTemplate.query(sql, new TouristAttractionRowMapper(), name);
 

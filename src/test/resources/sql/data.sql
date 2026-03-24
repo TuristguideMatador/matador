@@ -1,11 +1,5 @@
-
-TRUNCATE TABLE attraction_tag;
-TRUNCATE TABLE color;
-TRUNCATE TABLE location;
-TRUNCATE TABLE tag;
-TRUNCATE TABLE tourist_attraction;
-
-SET FOREIGN_KEY_CHECKS = 1;
+--
+-- SET FOREIGN_KEY_CHECKS = 1;
 
 -- Lookup tables
 

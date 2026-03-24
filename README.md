@@ -105,4 +105,4 @@ Nedenfor er en gennemgang af opgavekravene af underviserne med beskrivelser af h
 - **Status: OPFYLDT**
 - Detaljer: På [Miro.com](https://miro.com/app/board/uXjVGHaWmKg=/?share_link_id=412386312900) har vi optegnet en wireframe med de specifikationer vi kunne tænke os. Der er bestræbet her på at holde det simpelt og funktionelt fremfor visuelt banebrydende. Derudover er der defineret hex koder til de farver vi kunne tænke os at bruge igennem websiden.
 
-### 2. 
+### 2. 2

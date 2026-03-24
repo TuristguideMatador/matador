@@ -1,5 +1,4 @@
-CREATE DATABASE matadorDB
-    DEFAULT CHARACTER SET utf8mb4;
+CREATE DATABASE matadorDB;
 
 USE matadorDB;
 

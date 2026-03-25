@@ -7,10 +7,13 @@
 Dette dokument giver en oversigt over det aktuelle projekt, "matador", i forhold til kravene specificeret i "Turistguide 1" (Java backend), "Turistguide 2" (Web Frontend) og "Turistguide 3" (database + deployment). 
 Projektet er en Spring Boot-applikation designet til at levere en webbrugerflade for administration af turistattraktioner.
 
+[`🌐 Link til website på Azure`](https://matador-app.azurewebsites.net/)
+
 I vores projekt har vi arbejdet med konceptet om Matador spillet som en turistguide. Hjemmesiden skal betragtes som en Matador-inspireret turistguide igennem København med udgangspunkt i spillets felter.
 
 ## Github Build Status
 [![Java CI with Maven](https://github.com/jsdsdal/matador/actions/workflows/main-tests.yml/badge.svg)](https://github.com/jsdsdal/matador/actions/workflows/main-tests.yml)
+
 ## Overordnet
 Vi har bestræbet os på at gennemføre kravene specificeret i opgaveformuleringen. Derudover har vi også forsøgt os at udvide dem efter vores egne visioner om hvad projektet kan blive til. Til dette formål har vi udspecificeret vores "diverse" krav nederst for siden. 
 
@@ -27,7 +30,7 @@ Nedenfor er en gennemgang af opgavekravene af underviserne med beskrivelser af h
 
 ### 1. Opret Spring Boot projekt
 - **Status: OPFYLDT**
-- **Detaljer:** Der er oprettet et Spring Boot projekt efter specifikationerne i opgavekravene. Herunder har vi `TouristRepository` med `@Repository` annotationen (en ArrayList i denne udgave - se [sammenligning her](https://github.com/TuristguideMatador/matador/compare/4368a15cf449d8e6b501775ee3b9ea903f931609...afa0defdb5c1b70301bd3b7510695293762275bc).Ligeledes er `TouristService` med `@Service` annotationen oprettet, samt `TouristController` med `@Controller` annotation.
+- **Detaljer:** Der er oprettet et Spring Boot projekt efter specifikationerne i opgavekravene. Herunder har vi `TouristRepository` med `@Repository` annotationen (en ArrayList i denne udgave - se sammenligning [her](https://github.com/TuristguideMatador/matador/compare/4368a15cf449d8e6b501775ee3b9ea903f931609...afa0defdb5c1b70301bd3b7510695293762275bc)). Ligeledes er `TouristService` med `@Service` annotationen oprettet, samt `TouristController` med `@Controller` annotation.
 
 ### 2. Test af CRUD endpoints
 - **Status: OPFYLDT**

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
     <title>Creation Form</title>
@@ -32,7 +32,7 @@
                 <p>Tags</p>
                 <div class="tag-item" th:each="tag : ${allTags}">
                     <input type="checkbox" th:field="*{tags}" th:value="${tag}"/>
-                    <label th:text="${tag}"></label>
+                        <p th:text="${tag}"></p>
                 </div>
             </div>
 

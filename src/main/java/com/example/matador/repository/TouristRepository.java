@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class TouristRepository {
@@ -16,24 +17,16 @@ public class TouristRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-    // find alle fra join table
     public List<TouristAttraction> findAll() {
         String sql = """
-        SELECT 
-            tourist_attraction.attraction_id,
-            tourist_attraction.location_id,
-            tourist_attraction.name, 
-            tourist_attraction.description,
-            location.name AS location_name,
-            color.hex AS color_hex
-        FROM
-            tourist_attraction
-        JOIN location
-            ON tourist_attraction.location_id = location.location_id
-        JOIN color
-            ON location.color_id = color.color_id
-        """;
+                SELECT tourist_attraction.attraction_id,  
+                tourist_attraction.location_id,  
+                tourist_attraction.name, tourist_attraction.description, 
+                location.name AS location_name, color.hex AS color_hex FROM  tourist_attraction  
+                JOIN location  
+                ON tourist_attraction.location_id = location.location_id  
+                JOIN color  
+                ON location.color_id = color.color_id""";
 
         List<TouristAttraction> attractions = jdbcTemplate.query(sql, new TouristAttractionRowMapper());
 
@@ -44,10 +37,9 @@ public class TouristRepository {
         return attractions;
     }
 
-    // get = NAME
     public TouristAttraction getTouristAttractionByName(String name) {
         String sql = """
-        SELECT tourist_attraction.attraction_id,
+     SELECT tourist_attraction.attraction_id,
                tourist_attraction.location_id,
                tourist_attraction.name,
                tourist_attraction.description,
@@ -57,7 +49,7 @@ public class TouristRepository {
         JOIN location ON tourist_attraction.location_id = location.location_id
         JOIN color ON location.color_id = color.color_id
         WHERE tourist_attraction.name = ?
-        """;
+         """;
 
         List<TouristAttraction> result = jdbcTemplate.query(sql, new TouristAttractionRowMapper(), name);
 
@@ -72,16 +64,20 @@ public class TouristRepository {
     }
 
 
-    // get location id by name
     public int getLocationIdByName(String locationName) {
         String sql = "SELECT location_id FROM location WHERE name = ?";
-        Integer locationId = jdbcTemplate.queryForObject(sql, Integer.class, locationName);
-        return locationId;
+
+        Integer locationId;
+        locationId = jdbcTemplate.queryForObject(sql, Integer.class, locationName);
+        if (locationId != null) {
+            return locationId;
+        } else {
+            throw new NoSuchElementException("Location not found" + locationName);
+        }
     }
 
 
 
-    // get locations
     public List<String> getLocations() {
         String sql = """
             SELECT name FROM location
@@ -108,8 +104,7 @@ public class TouristRepository {
         WHERE attraction_tag.attraction_id = ?
         """;
 
-        List<String> tagNames = jdbcTemplate.queryForList(sql, String.class, attractionId);
-        return tagNames;
+        return jdbcTemplate.queryForList(sql, String.class, attractionId);
     }
 
 
@@ -128,17 +123,19 @@ public class TouristRepository {
             ps.setInt(3, touristAttraction.getLocationId());
             return ps;
         }, keyHolder);
-
-        int attractionId = keyHolder.getKey().intValue();
-        //touristAttraction.setAttractionId(attractionId);
-
+        int attractionId;
+        Number key = keyHolder.getKey();
+        if (key != null) {
+            attractionId = key.intValue();
+        } else {
+            throw new NoSuchElementException("Failed to retrieve ID for attraction");
+        }
         saveTagsForAttraction(attractionId, touristAttraction.getTags());
 
         return touristAttraction;
 
     }
 
-    // save tags
     private void saveTagsForAttraction(int attractionId, List<String> tags) {
         String findTagIdSql = """
             SELECT tag_id FROM tag WHERE tag_name = ?
@@ -153,7 +150,6 @@ public class TouristRepository {
         }
     }
 
-    // update
     public void update(TouristAttraction updatedTouristAttraction) {
         String sql = """
             UPDATE tourist_attraction

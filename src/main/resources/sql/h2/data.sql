@@ -86,3 +86,4 @@ INSERT INTO attraction_tag (attraction_id, tag_id) VALUES
                                                        (3,9),
                                                        (3,4);
 
+ALTER TABLE tourist_attraction ALTER COLUMN attraction_id RESTART WITH 4;
